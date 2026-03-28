@@ -25,7 +25,10 @@ public class Hotel implements MinistryOfTravel
     {
         if (currentNumberOfRooms < maxNumberOfRooms)
         {
-            roomList[currentNumberOfRooms] = room; 
+            if(room instanceof StandardRoom)
+                roomList[currentNumberOfRooms++] = new StandardRoom(room.getRoomSize(), room.getGuestCapacity()); 
+            else if (room instanceof Suite)
+                roomList[currentNumberOfRooms++] = new Suite(room.getRoomSize(), room.getGuestCapacity());
         }
         else
         {
