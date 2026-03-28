@@ -13,7 +13,7 @@ public class Guest
     {
         if (!hotel.standardsFullyBooked())
         {
-            hotel.availableRoom().addGuest(this);
+            hotel.availableRoom().AddGuest(this);
         }
     }
 
