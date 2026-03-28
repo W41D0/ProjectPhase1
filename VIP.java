@@ -10,6 +10,7 @@ public class VIP extends Guest
         this.loyaltyPoints = loyaltyPoints;
     }
 
+    @Override
     public void bookHotel(Hotel hotel, int days)
     {
         if (!hotel.suitesFullyBooked())
