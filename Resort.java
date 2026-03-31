@@ -2,13 +2,13 @@ package ProjectPhase1;
 
 public class Resort implements MinistryOfTravel
 {
+    private String name;
     private int rating;
-    private boolean localsAllowed;
 
-    public Resort(int rating, boolean allowLocals)
+    public Resort(String name, int rating)
     {
         this.rating = rating;
-        this.localsAllowed = allowLocals;
+        this.name = name;
     }
 
     public int getRating()
@@ -16,8 +16,8 @@ public class Resort implements MinistryOfTravel
         return rating;
     }
 
-    public boolean allowLocals()
+    public String getName()
     {
-        return localsAllowed;
+        return name;
     }
 }

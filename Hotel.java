@@ -2,23 +2,23 @@ package ProjectPhase1;
 
 public class Hotel implements MinistryOfTravel
 {
+    private String name;
     private int maxNumberOfRooms;
-    private int currentNumberOfRooms;
-    private double totalProfit;
+    private int currentNumberOfRooms = 0;
+    private double totalProfit = 0;
     private double pricePerDay;
     public Room[] roomList;
 
     private int rating;
-    private boolean localsAllowed;
 
-    public Hotel(double pricePerDay, int maxNumberOfRooms, int rating, boolean allowLocals)
+    public Hotel(String name, double pricePerDay, int maxNumberOfRooms, int rating)
     {
+        this.name = name;
         SetPricePerDay(pricePerDay);
         SetMaxNumberOfRooms(maxNumberOfRooms);
         roomList = new Room[maxNumberOfRooms];
 
         this.rating = rating;
-        this.localsAllowed = allowLocals;
     }
 
     public void AddRoom(Room room)
@@ -26,14 +26,40 @@ public class Hotel implements MinistryOfTravel
         if (currentNumberOfRooms < maxNumberOfRooms)
         {
             if(room instanceof StandardRoom)
-                roomList[currentNumberOfRooms++] = new StandardRoom(room.getRoomSize(), room.getGuestCapacity()); 
+                roomList[currentNumberOfRooms] = new StandardRoom(room.getRoomSize()); 
             else if (room instanceof Suite)
-                roomList[currentNumberOfRooms++] = new Suite(room.getRoomSize(), room.getGuestCapacity());
+                roomList[currentNumberOfRooms] = new Suite(room.getRoomSize());
+
+            roomList[currentNumberOfRooms++].setHotel(this);
         }
         else
         {
             System.out.println("Hotel does not have the capacity");
         }
+    }
+
+    public double calculatePrice(Guest guest, int days) 
+    {
+        double totalPrice = GetPricePerDay() * days;
+        int freeDays = 0;
+
+        // 1. Figure out how many free days they can afford
+        if (guest instanceof MVP m) 
+        {
+            freeDays = m.GetLoyaltyPoints() / 10;
+        } 
+        else if (guest instanceof VIP v) 
+        {
+            freeDays = v.GetLoyaltyPoints() / 20;
+        }
+
+        if (freeDays > days) 
+        {
+            freeDays = days;
+        }
+
+        totalPrice -= (freeDays * GetPricePerDay());
+        return totalPrice;
     }
 
     public void AddProfit(double profitGain)
@@ -46,9 +72,9 @@ public class Hotel implements MinistryOfTravel
         return rating;
     }
 
-    public boolean allowLocals()
+    public String getName()
     {
-        return localsAllowed;
+        return name;
     }
 
     public void SetMaxNumberOfRooms(int maxNumberOfRooms)
@@ -79,23 +105,79 @@ public class Hotel implements MinistryOfTravel
     //-------------------------------------------------------------------------------------------------------
     //finish everything after this comment (the code under here is just a placeholder)
 
-    public boolean standardsFullyBooked()
+    public boolean standardsFullyBooked() 
     {
-        return false;
+        for (int i = 0; i < currentNumberOfRooms; i++) 
+        {
+            if (roomList[i] instanceof StandardRoom) 
+            {
+                if (roomList[i].IsEmpty()) 
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    public boolean suitesFullyBooked()
+    public boolean suitesFullyBooked() 
     {
-        return false;
+        for (int i = 0; i < currentNumberOfRooms; i++) 
+        {
+            if (roomList[i] instanceof Suite) 
+            {
+                if (roomList[i].IsEmpty()) 
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    public StandardRoom availableRoom()
+    public StandardRoom availableRoom() 
     {
-        return availableRoom();
+        return findStandardRecursive(0);
     }
 
-    public Suite availableSuite()
+    private StandardRoom findStandardRecursive(int index) 
     {
-        return availableSuite();
+        if (index >= currentNumberOfRooms) 
+        {
+            return null;
+        }
+
+        if (roomList[index] instanceof StandardRoom) 
+        {
+            if (roomList[index].IsEmpty()) 
+            {
+                return (StandardRoom) roomList[index];
+            }
+        }
+        return findStandardRecursive(index + 1);
     }
+
+    public Suite availableSuite() 
+    {
+        return findSuiteRecursive(0);
+    }
+
+    private Suite findSuiteRecursive(int index) 
+    {
+
+        if (index >= currentNumberOfRooms) 
+        {
+            return null;
+        }
+
+        if (roomList[index] instanceof Suite) 
+        {
+            if (roomList[index].IsEmpty()) 
+            {
+                return (Suite) roomList[index];
+            }
+        }
+        return findSuiteRecursive(index + 1);
+    }
+
 }

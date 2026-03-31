@@ -2,7 +2,7 @@ package ProjectPhase1;
 
 public abstract class Room {
 
-
+    protected Hotel currentHotel;
     protected double roomSize;
     protected int currentNumberGuest;
     protected int guestCapacity;
@@ -25,12 +25,10 @@ public abstract class Room {
     {
         return currentNumberGuest == 0 ;
     }
-    public boolean hasMVP;
-    public boolean hasFreeRoomService;
 
 
-    public abstract void AddGuest(Guest guest);
-    public abstract void AddGuest(Guest[] guestS);
+    public abstract void AddGuest(Guest guest, int days);
+    public abstract void AddGuests(Guest[] guestS, int days);
     public abstract void RemoveGuest(Guest guest);
     public abstract void RemoveGuest(Guest[] guestS);
 
@@ -52,6 +50,16 @@ public abstract class Room {
     public Guest[] getGuestList() 
     {
         return guestList;
+    }
+
+    public void setHotel(Hotel hotel)
+    {
+        currentHotel = hotel;
+    }
+
+    public Hotel getHotel()
+    {
+        return currentHotel;
     }
 
 }

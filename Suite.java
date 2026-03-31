@@ -2,13 +2,13 @@ package ProjectPhase1;
 
 public class Suite extends Room 
 {
-	public Suite(double roomSize, int guestCapacity) 
+	public Suite(double roomSize) 
     {
-		super(roomSize, guestCapacity);
+		super(roomSize, 4);
 	}
 
 	@Override
-	public  void AddGuest(Guest guest) 
+	public  void AddGuest(Guest guest, int days) 
     {
 		if(guest == null) 
         {
@@ -27,6 +27,21 @@ public class Suite extends Room
 				if(guestList[i] == null) 
                 {
 					guestList[i] = guest;
+					double finalPrice = currentHotel.calculatePrice(guestList[i], days);
+					currentHotel.AddProfit(finalPrice);
+					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
+					if (guestList[i] instanceof MVP m)
+					{
+						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
+    					int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
+    					m.SetLoyaltyPoints(m.GetLoyaltyPoints() - (freeDaysUsed * 20));
+					}
+					else if (guestList[i] instanceof VIP v)
+					{
+						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
+    					int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
+    					v.SetLoyaltyPoints(v.GetLoyaltyPoints() - (freeDaysUsed * 20));
+					}
 					currentNumberGuest++;
 					System.out.println("Done Add "+ i + " To The list.");
 				    return;
@@ -36,7 +51,7 @@ public class Suite extends Room
 	}
 
 	@Override
-	public  void AddGuest(Guest[] guestS) 
+	public  void AddGuests(Guest[] guestS, int days) 
     {
     	if(guestS == null) 
         {
@@ -57,7 +72,7 @@ public class Suite extends Room
 		for(int i = 0; i<guestS.length;i++) 
         {
 			if(guestS != null)
-				AddGuest(guestS[i]);
+				AddGuest(guestS[i], days);
 		}
 	
 	}
@@ -118,12 +133,10 @@ public class Suite extends Room
 			}
 		}
 	}
-
 	
 	public boolean hasMVP() {
 	    for (int i = 0; i < currentNumberGuest; i++) {
-	        if (guestList[i] != null &&
-	            guestList[i].getClass().getSimpleName().equalsIgnoreCase("MVP")) {
+	        if (guestList[i] != null && guestList[i] instanceof MVP) {
 	            return true;
 	        }
 	    }

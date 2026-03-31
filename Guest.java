@@ -11,10 +11,17 @@ public class Guest
 
     public void bookHotel(Hotel hotel, int days)
     {
-        if (!hotel.standardsFullyBooked())
+        if (hotel.calculatePrice(this, days) <= getBalance())
         {
-            hotel.availableRoom().AddGuest(this);
+            if (!hotel.standardsFullyBooked())
+            {
+                hotel.availableRoom().AddGuest(this, days);
+            }
+            else
+                System.out.println("No Available Rooms");
         }
+        else
+            System.out.println("Cant Afford Room");
     }
 
     public void setBalance(double balance) 

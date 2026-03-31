@@ -3,13 +3,13 @@ package ProjectPhase1;
 public class StandardRoom extends Room
 {
 
-	public StandardRoom(double roomSize, int guestCapacity) 
+	public StandardRoom(double roomSize) 
     {
-		super(roomSize, guestCapacity);
+		super(roomSize, 2);
 	}
 
     @Override
-	public  void AddGuest(Guest guest) 
+	public  void AddGuest(Guest guest, int days) 
     {
 		if(guest == null) 
         {
@@ -18,7 +18,7 @@ public class StandardRoom extends Room
         }
 		else if(IsFull()) 
         {
-			System.out.println("Can Not add geust the suite is Full");
+			System.out.println("Can Not add geust the room is Full");
 			return;
         }
 		else 
@@ -28,6 +28,9 @@ public class StandardRoom extends Room
 				if(guestList[i] == null) 
                 {
 					guestList[i] = guest;
+					double finalPrice = currentHotel.calculatePrice(guestList[i], days);
+					currentHotel.AddProfit(finalPrice);
+					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
 					currentNumberGuest++;
 					System.out.println("Done Add "+ i + " To The list.");
 					return;
@@ -37,18 +40,18 @@ public class StandardRoom extends Room
 	}
     
     @Override
-	public  void AddGuest(Guest[] guestS) 
+	public  void AddGuests(Guest[] guestS, int days) 
     {
     	if(guestS == null) 
         {
-			System.out.println("Vaild Value.....");   	
+			System.out.println("Error...");   	
     		return;
         }
 
 		int count = 0;
-    	for(int i =0; i< guestS.length;i++) 
+    	for(int i = 0; i< guestS.length; i++) 
         {
-    		if(guestS != null)
+    		if(guestS[i] != null && currentHotel.calculatePrice(guestS[i], days) < guestS[i].getBalance())
     			count++;
     	}
     	if(count + currentNumberGuest > guestCapacity) 
@@ -59,7 +62,7 @@ public class StandardRoom extends Room
 		for(int i = 0; i<guestS.length;i++) 
         {
 			if(guestS != null)
-				AddGuest(guestS[i]);
+				AddGuest(guestS[i], days);
 		}
 	}
 

@@ -13,9 +13,20 @@ public class VIP extends Guest
     @Override
     public void bookHotel(Hotel hotel, int days)
     {
-        if (!hotel.suitesFullyBooked())
+        if (hotel.calculatePrice(this, days) <= getBalance())
         {
-            hotel.availableSuite().AddGuest(this);
+            if (!hotel.suitesFullyBooked())
+            {
+                hotel.availableSuite().AddGuest(this, days);
+            }
+            else
+            {
+                System.out.println("No Available Rooms");
+            }
+        }
+        else
+        {
+            System.out.println("Cant Afford Room");
         }
     }
 
