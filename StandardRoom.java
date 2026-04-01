@@ -6,15 +6,16 @@ public class StandardRoom extends Room
     {
 		super(roomSize, 2);
 	}
+	
     @Override
 	public boolean CanAfford(Guest guest, int days) {
         if (guest == null || days <= 0) {
             return false;
-		}
+ 	   }
         return guest.getBalance() >= (roomSize * days);
-    }
-     
-	 
+     }   
+
+	
     @Override
 	public  void AddGuest(Guest guest, int days) 
     {
