@@ -33,18 +33,20 @@ public class Suite extends Room
 					if (guestList[i] instanceof MVP m)
 					{
 						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
-    					int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
-    					m.SetLoyaltyPoints(m.GetLoyaltyPoints() - (freeDaysUsed * 20));
+						int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
+    					m.SetLoyaltyPoints(m.GetLoyaltyPoints() - (freeDaysUsed * 10));
+						System.out.println("Succesfully used " + freeDaysUsed * 10 + " to save " + savings + " Riyals.");
 					}
 					else if (guestList[i] instanceof VIP v)
 					{
 						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
-    					int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
+						int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
     					v.SetLoyaltyPoints(v.GetLoyaltyPoints() - (freeDaysUsed * 20));
+						System.out.println("Succesfully used " + freeDaysUsed * 20 + " to save " + savings + " Riyals.");
 					}
 					currentNumberGuest++;
 					System.out.println("Done Add "+ i + " To The list.");
-				    return;
+					return;
 				}
 			}
 		}
@@ -53,21 +55,21 @@ public class Suite extends Room
 	@Override
 	public  void AddGuests(Guest[] guestS, int days) 
     {
-    	if(guestS == null) 
+		if(guestS == null) 
         {
 			System.out.println("Vaild Value.....");   	
-    		return;
+			return;
         }
 		int count = 0;
-    	for(int i =0; i< guestS.length;i++) 
+		for(int i =0; i< guestS.length;i++) 
         {
-    		if(guestS != null)
-    		    count++;
-    	}
-    		if(count + currentNumberGuest > guestCapacity) 
+			if(guestS != null)
+				count++;
+		}
+			if(count + currentNumberGuest > guestCapacity) 
             {
-    			System.out.println("Error The Number of new guest Bigger than the size...");
-    			return;
+				System.out.println("Error The Number of new guest Bigger than the size...");
+				return;
             }
 		for(int i = 0; i<guestS.length;i++) 
         {
@@ -80,9 +82,9 @@ public class Suite extends Room
 	@Override
 	public  void RemoveGuest(Guest guest) 
     {
-    	if(guest == null) 
+		if(guest == null) 
         {
-    		System.out.println("Error...");
+			System.out.println("Error...");
 			return;
         }
 
@@ -135,15 +137,22 @@ public class Suite extends Room
 	}
 	
 	public boolean hasMVP() {
-	    for (int i = 0; i < currentNumberGuest; i++) {
-	        if (guestList[i] != null && guestList[i] instanceof MVP) {
-	            return true;
-	        }
-	    }
-	    return false;
+		for (int i = 0; i < currentNumberGuest; i++) {
+			if (guestList[i] != null && guestList[i] instanceof MVP) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean hasFreeRoomService() {
-	    return hasMVP();
+		return hasMVP();
+	}
+
+	@Override
+	public void Display()
+    {
+		System.out.println("Room type: Standard Room");
+		super.Display();
 	}
 }

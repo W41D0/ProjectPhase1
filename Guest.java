@@ -26,6 +26,12 @@ public class Guest
             System.out.println("Cant Afford Room");
     }
 
+        public void Display()
+        {
+            System.out.print("Name: " + getName());
+            System.out.println("\tBalance: " + getBalance() + " Riyals");
+        }
+
     public void setBalance(double balance) 
     {
         this.balance = balance;
@@ -34,5 +40,10 @@ public class Guest
     public double getBalance()
     {
         return balance;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

@@ -32,6 +32,25 @@ public abstract class Room {
     public abstract void RemoveGuest(Guest guest);
     public abstract void RemoveGuest(Guest[] guestS);
 
+    public void Display()
+    {
+        System.out.print("Room Size: " + roomSize);
+        System.out.print("\tMaximum Guest Capacity: " + guestCapacity);
+        System.out.println("\tNumber of currently booked Guests: " + currentNumberGuest);
+        if(currentNumberGuest > 0)
+        {
+            System.out.println("Guest List:");
+            for (int i = 0; i < currentNumberGuest; i++)
+            {
+                guestList[i].Display();
+            }
+        }
+        else
+        {
+            System.out.println("Room is empty.");
+        }
+    }
+
     public double getRoomSize() 
     {
         return roomSize;

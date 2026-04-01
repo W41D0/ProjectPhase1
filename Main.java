@@ -16,7 +16,10 @@ public class Main
 
         System.out.println("Welcome to the Hotel Management System");
 
-        System.out.println("Select Guest Type: 1. Regular Guest, 2. VIP, 3. MVP");
+        System.out.print("Enter Your Name: ");
+        String name = input.nextLine();
+
+        System.out.println("Select Guest Type: \n1. Regular Guest\n2. VIP\n3. MVP");
         int type = input.nextInt();
 
         System.out.println("Enter your balance: ");
@@ -26,18 +29,18 @@ public class Main
 
         if (type == 2) 
         {
-            userGuest = new VIP("Ahmad", balance, 100);
+            userGuest = new VIP(name, balance, 100);
         } 
         else if (type == 3) 
         {
-            userGuest = new MVP("Ahmad", balance, 500);
+            userGuest = new MVP(name, balance, 500);
         } 
         else 
         {
-            userGuest = new Guest("Ahmad", balance);
+            userGuest = new Guest(name, balance);
         }
 
-        System.out.println("Where would you like to stay? 1. Hilton Hotel, 2. Burj Al Arab");
+        System.out.println("Where would you like to stay?\n1. Hilton Hotel\n2. Burj Al Arab");
         int choice = input.nextInt();
 
         Hotel selectedPlace;

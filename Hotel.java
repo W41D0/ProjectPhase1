@@ -102,9 +102,6 @@ public class Hotel implements MinistryOfTravel
         return totalProfit;
     }
 
-    //-------------------------------------------------------------------------------------------------------
-    //finish everything after this comment (the code under here is just a placeholder)
-
     public boolean standardsFullyBooked() 
     {
         for (int i = 0; i < currentNumberOfRooms; i++) 
@@ -178,6 +175,27 @@ public class Hotel implements MinistryOfTravel
             }
         }
         return findSuiteRecursive(index + 1);
+    }
+
+    public void Display()
+    {
+        System.out.println("Hotel: " + name);
+        System.out.print("Rating: " + rating + " stars");
+        System.out.print("\tPrice Per Day: " + pricePerDay + " Riyals");
+        System.out.println("Total Profit: " + totalProfit + " Riyals");
+        System.out.println("Number of current rooms: " + currentNumberOfRooms);
+        System.out.println("Room Info:");
+        if(currentNumberOfRooms > 0)
+        {
+            for (int i = 0; i < currentNumberOfRooms; i++) 
+            {
+                roomList[i].Display();    
+            }
+        }
+        else
+        {
+            System.out.println("The Hotel is empty of rooms.");
+        }
     }
 
 }

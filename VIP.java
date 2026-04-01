@@ -30,6 +30,14 @@ public class VIP extends Guest
         }
     }
 
+        @Override
+        public void Display()
+        {
+            System.out.print("Name: " + getName());
+            System.out.print("\tBalance: " + getBalance());
+            System.out.println("\tLoyalty Points: " + GetLoyaltyPoints());
+        }
+
     public void SetLoyaltyPoints(int loyaltyPoints)
     {
         this.loyaltyPoints = loyaltyPoints;
