@@ -1,4 +1,3 @@
-
 public class Suite extends Room 
 {
 	public Suite(double roomSize) 
@@ -34,17 +33,21 @@ public class Suite extends Room
 						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
 						int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
     					((MVP)(guestList[i])).SetLoyaltyPoints(((MVP)(guestList[i])).GetLoyaltyPoints() - (freeDaysUsed * 10));
-						System.out.println("Succesfully used " + freeDaysUsed * 10 + " Loyalty points to save " + savings + " Riyals.");
+						System.out.println(guestList[i].getName() + " Succesfully used " + freeDaysUsed * 10 + " Loyalty points to save " + savings + " Riyals.");
+                    	System.out.println("Loyalty points left: " + ((MVP)(guestList[i])).GetLoyaltyPoints() + "\n");
 					}
 					else if (guestList[i] instanceof VIP)
 					{
 						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
 						int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
     					((VIP)(guestList[i])).SetLoyaltyPoints(((VIP)(guestList[i])).GetLoyaltyPoints() - (freeDaysUsed * 20));
-						System.out.println("Succesfully used " + freeDaysUsed * 20 + " Loyalty points to save " + savings + " Riyals.");
+						System.out.println(guestList[i].getName() + " Succesfully used " + freeDaysUsed * 20 + " Loyalty points to save " + savings + " Riyals.");
+						System.out.println("Loyalty points left: " + ((VIP)(guestList[i])).GetLoyaltyPoints() + "\n");
 					}
-					System.out.println("Paid " + finalPrice + " Riyals.");
 					currentNumberGuest++;
+					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
+					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
+					Display();
 					return;
 				}
 			}
@@ -152,6 +155,7 @@ public class Suite extends Room
 	public void Display()
     {
 		System.out.println("Room type: Suite");
+		System.out.println("Has free Room Service?: " + hasFreeRoomService());
 		super.Display();
 	}
 }

@@ -17,9 +17,14 @@ public class StandardRoom extends Room
         }
 		else if(IsFull()) 
         {
-			System.out.println("Can Not add geust the room is Full");
+			System.out.println("Can Not add" + guest.getName() + ", the room is Full");
 			return;
         }
+		else if (currentHotel.calculatePrice(guest, days) > guest.getBalance())
+        {
+			System.out.println("Can Not add " + guest.getName() + ", cant afford.");
+			return;
+		}
 		else 
         {
 			for(int i = 0 ; i < guestList.length; i++) 
@@ -31,7 +36,9 @@ public class StandardRoom extends Room
 					currentHotel.AddProfit(finalPrice);
 					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
 					currentNumberGuest++;
-					System.out.println("Done Add "+ i + " To The list.");
+					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
+					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
+					Display();
 					return;
 				}
 			}

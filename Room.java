@@ -1,4 +1,3 @@
-
 public abstract class Room {
 
     protected Hotel currentHotel;
@@ -6,6 +5,7 @@ public abstract class Room {
     protected int currentNumberGuest;
     protected int guestCapacity;
     protected Guest[] guestList;
+    protected int roomNo;
 
     public Room(double roomSize, int guestCapacity) 
     {
@@ -78,6 +78,11 @@ public abstract class Room {
     public Hotel getHotel()
     {
         return currentHotel;
+    }
+
+    public void SetRoomNo(int roomNo)
+    {
+        this.roomNo = roomNo;
     }
 
 }

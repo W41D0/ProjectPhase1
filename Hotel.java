@@ -29,7 +29,9 @@ public class Hotel implements MinistryOfTravel
             else if (room instanceof Suite)
                 roomList[currentNumberOfRooms] = new Suite(room.getRoomSize());
 
+            roomList[currentNumberOfRooms].SetRoomNo(currentNumberOfRooms + 1);
             roomList[currentNumberOfRooms++].setHotel(this);
+            
         }
         else
         {
@@ -84,6 +86,11 @@ public class Hotel implements MinistryOfTravel
     public int GetMaxNumberOfRooms()
     {
         return maxNumberOfRooms;
+    }
+
+    public int GetCurrentNumberOfRooms()
+    {
+        return currentNumberOfRooms;
     }
 
     public void SetPricePerDay(double pricePerDay)
@@ -188,7 +195,7 @@ public class Hotel implements MinistryOfTravel
         {
             for (int i = 0; i < currentNumberOfRooms; i++) 
             {
-                System.out.println("Room No." + i);
+                System.out.println("Room No." + (i + 1));
                 roomList[i].Display();    
             }
         }

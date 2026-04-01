@@ -19,4 +19,9 @@ public class Resort implements MinistryOfTravel
     {
         return name;
     }
+
+    public void Display()
+    {
+        System.out.println("Name: " + name + "\tRating: " + rating);
+    }
 }
