@@ -2,10 +2,12 @@ package ProjectPhase1;
 
 public class Guest 
 {
+    protected String name;
     protected double balance;
 
-    public Guest(double balance)
+    public Guest(String name, double balance)
     {
+        this.name = name;
         this.balance = balance;
     }
 

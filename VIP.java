@@ -4,9 +4,9 @@ public class VIP extends Guest
 {
     protected int loyaltyPoints;
 
-    public VIP(double balance, int loyaltyPoints)
+    public VIP(String name, double balance, int loyaltyPoints)
     {
-        super(balance);
+        super(name, balance);
         this.loyaltyPoints = loyaltyPoints;
     }
 

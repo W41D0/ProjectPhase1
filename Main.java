@@ -26,15 +26,15 @@ public class Main
 
         if (type == 2) 
         {
-            userGuest = new VIP(balance, 100);
+            userGuest = new VIP("Ahmad", balance, 100);
         } 
         else if (type == 3) 
         {
-            userGuest = new MVP(balance, 500);
+            userGuest = new MVP("Ahmad", balance, 500);
         } 
         else 
         {
-            userGuest = new Guest(balance);
+            userGuest = new Guest("Ahmad", balance);
         }
 
         System.out.println("Where would you like to stay? 1. Hilton Hotel, 2. Burj Al Arab");

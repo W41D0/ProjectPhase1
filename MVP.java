@@ -2,8 +2,8 @@ package ProjectPhase1;
 
 public class MVP extends VIP
 {
-    public MVP(double balance, int loyaltyPoints)
+    public MVP(String name, double balance, int loyaltyPoints)
     {
-        super(balance, loyaltyPoints);
+        super(name, balance, loyaltyPoints);
     }
 }
