@@ -43,13 +43,13 @@ public class Hotel implements MinistryOfTravel
         int freeDays = 0;
 
         // 1. Figure out how many free days they can afford
-        if (guest instanceof MVP m) 
+        if (guest instanceof MVP) 
         {
-            freeDays = m.GetLoyaltyPoints() / 10;
+            freeDays = ((MVP)(guest)).GetLoyaltyPoints() / 10;
         } 
-        else if (guest instanceof VIP v) 
+        else if (guest instanceof VIP) 
         {
-            freeDays = v.GetLoyaltyPoints() / 20;
+            freeDays = ((VIP)(guest)).GetLoyaltyPoints() / 20;
         }
 
         if (freeDays > days) 

@@ -8,11 +8,16 @@ public class Main
         Hotel Hilton = new Hotel("Hilton Hotel", 200, 10, 4);
         Hotel BurjAlArab = new Hotel("Burj Al Arab Hotel", 400, 20, 5);
         Resort myResort = new Resort("Rosewood Resort", 500);
-        Hilton.AddRoom(new StandardRoom(30.0));
-        Hilton.AddRoom(new StandardRoom(25.0));
-        Hilton.AddRoom(new Suite(60.0));
+        Hilton.AddRoom(new StandardRoom(30));
+        Hilton.AddRoom(new StandardRoom(25));
+        Hilton.AddRoom(new Suite(60));
+        BurjAlArab.AddRoom(new StandardRoom(20));
+        BurjAlArab.AddRoom(new StandardRoom(35));
+        BurjAlArab.AddRoom(new Suite(50));
 
         System.out.println("Welcome to the Hotel Management System");
+
+        System.out.println("Choose your ");
 
         System.out.print("Enter Your Name: ");
         String name = input.nextLine();
@@ -59,7 +64,7 @@ public class Main
 
         System.out.println("");
         Hilton.Display();
-        if (userGuest instanceof VIP v)
-            System.out.println("Loyalty points left: " + v.GetLoyaltyPoints());
+        if (userGuest instanceof VIP)
+            System.out.println("Loyalty points left: " + ((VIP)(userGuest)).GetLoyaltyPoints());
     }
 }
