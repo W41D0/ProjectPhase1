@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public abstract class Room {
 
@@ -49,6 +48,7 @@ public abstract class Room {
         {
             System.out.println("Room is empty.");
         }
+        System.out.println("");
     }
 
     public double getRoomSize() 

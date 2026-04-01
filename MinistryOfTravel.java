@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public interface MinistryOfTravel 
 {

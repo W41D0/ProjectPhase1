@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public class VIP extends Guest
 {
@@ -35,7 +34,7 @@ public class VIP extends Guest
         {
             System.out.print("Name: " + getName());
             System.out.print("\tBalance: " + getBalance());
-            System.out.println("\tLoyalty Points: " + GetLoyaltyPoints());
+            System.out.println("\tLoyalty Points: " + GetLoyaltyPoints() + "\n");
         }
 
     public void SetLoyaltyPoints(int loyaltyPoints)

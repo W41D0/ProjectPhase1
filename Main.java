@@ -1,5 +1,3 @@
-package ProjectPhase1;
-
 import java.util.Scanner;
 public class Main 
 {
@@ -59,9 +57,8 @@ public class Main
 
         userGuest.bookHotel(selectedPlace, days);
 
-        System.out.println("Total Profit is: " + selectedPlace.GetTotalProfit());
-        System.out.println("Standards Full: " + selectedPlace.standardsFullyBooked());
-        System.out.println("Suites Full: " + selectedPlace.suitesFullyBooked());
+        System.out.println("");
+        Hilton.Display();
         if (userGuest instanceof VIP v)
             System.out.println("Loyalty points left: " + v.GetLoyaltyPoints());
     }

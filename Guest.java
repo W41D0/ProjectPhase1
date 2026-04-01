@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public class Guest 
 {
@@ -29,7 +28,7 @@ public class Guest
         public void Display()
         {
             System.out.print("Name: " + getName());
-            System.out.println("\tBalance: " + getBalance() + " Riyals");
+            System.out.println("\tBalance: " + getBalance() + " Riyals\n");
         }
 
     public void setBalance(double balance) 

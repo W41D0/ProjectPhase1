@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public class MVP extends VIP
 {

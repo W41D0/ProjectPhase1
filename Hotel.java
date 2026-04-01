@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public class Hotel implements MinistryOfTravel
 {
@@ -180,15 +179,16 @@ public class Hotel implements MinistryOfTravel
     public void Display()
     {
         System.out.println("Hotel: " + name);
-        System.out.print("Rating: " + rating + " stars");
-        System.out.print("\tPrice Per Day: " + pricePerDay + " Riyals");
-        System.out.println("Total Profit: " + totalProfit + " Riyals");
-        System.out.println("Number of current rooms: " + currentNumberOfRooms);
+        System.out.print("Rating: " + rating + " stars.");
+        System.out.print("\tPrice Per Day: " + pricePerDay + " Riyals.");
+        System.out.println("\tTotal Profit: " + totalProfit + " Riyals.");
+        System.out.println("Number of current rooms: " + currentNumberOfRooms + "\n");
         System.out.println("Room Info:");
         if(currentNumberOfRooms > 0)
         {
             for (int i = 0; i < currentNumberOfRooms; i++) 
             {
+                System.out.println("Room No." + i);
                 roomList[i].Display();    
             }
         }

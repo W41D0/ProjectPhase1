@@ -1,4 +1,3 @@
-package ProjectPhase1;
 
 public class Suite extends Room 
 {
@@ -152,7 +151,7 @@ public class Suite extends Room
 	@Override
 	public void Display()
     {
-		System.out.println("Room type: Standard Room");
+		System.out.println("Room type: Suite");
 		super.Display();
 	}
 }
