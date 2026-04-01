@@ -1,5 +1,5 @@
-public abstract class Room {
-
+public abstract class Room 
+{
     protected Hotel currentHotel;
     protected double roomSize;
     protected int currentNumberGuest;
@@ -15,6 +15,11 @@ public abstract class Room {
         this.guestList= new Guest[guestCapacity];
     }
 
+    public abstract void AddGuest(Guest guest, int days);
+    public abstract void AddGuests(Guest[] guestS, int days);
+    public abstract void RemoveGuest(Guest guest);
+    public abstract void RemoveGuests(Guest[] guestS);
+
     public boolean IsFull() 
     {
         return currentNumberGuest == guestCapacity ;
@@ -25,11 +30,6 @@ public abstract class Room {
         return currentNumberGuest == 0 ;
     }
 
-
-    public abstract void AddGuest(Guest guest, int days);
-    public abstract void AddGuests(Guest[] guestS, int days);
-    public abstract void RemoveGuest(Guest guest);
-    public abstract void RemoveGuest(Guest[] guestS);
     public void Display()
     {
         System.out.print("Room Size: " + roomSize);

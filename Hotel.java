@@ -1,4 +1,3 @@
-
 public class Hotel implements MinistryOfTravel
 {
     private String name;
@@ -7,7 +6,6 @@ public class Hotel implements MinistryOfTravel
     private double totalProfit = 0;
     private double pricePerDay;
     public Room[] roomList;
-
     private int rating;
 
     public Hotel(String name, double pricePerDay, int maxNumberOfRooms, int rating)

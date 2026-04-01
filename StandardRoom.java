@@ -1,4 +1,3 @@
-
 public class StandardRoom extends Room
 {
 
@@ -41,7 +40,7 @@ public class StandardRoom extends Room
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
 					Display();
-					
+
 					return;
 				}
 			}
@@ -116,7 +115,7 @@ public class StandardRoom extends Room
 	}
 	
 	@Override
-	public  void RemoveGuest(Guest[] guestS) 
+	public  void RemoveGuests(Guest[] guestS) 
 	{
 		if(guestS == null)
 			return;

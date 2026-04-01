@@ -131,7 +131,7 @@ public class Suite extends Room
 	}
 
 	@Override
-	public  void RemoveGuest(Guest[] guestS) 
+	public  void RemoveGuests(Guest[] guestS) 
     {
 		if(guestS == null)
 			return;

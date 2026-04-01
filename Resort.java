@@ -1,4 +1,3 @@
-
 public class Resort implements MinistryOfTravel
 {
     private String name;
@@ -10,6 +9,11 @@ public class Resort implements MinistryOfTravel
         this.name = name;
     }
 
+    public void Display()
+    {
+        System.out.println("Name: " + name + "\tRating: " + rating);
+    }
+
     public int getRating()
     {
         return rating;
@@ -18,10 +22,5 @@ public class Resort implements MinistryOfTravel
     public String getName()
     {
         return name;
-    }
-
-    public void Display()
-    {
-        System.out.println("Name: " + name + "\tRating: " + rating);
     }
 }

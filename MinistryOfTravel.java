@@ -1,4 +1,3 @@
-
 public interface MinistryOfTravel 
 {
     public int getRating();
