@@ -30,7 +30,6 @@ public abstract class Room {
     public abstract void AddGuests(Guest[] guestS, int days);
     public abstract void RemoveGuest(Guest guest);
     public abstract void RemoveGuest(Guest[] guestS);
-
     public void Display()
     {
         System.out.print("Room Size: " + roomSize);

@@ -12,7 +12,7 @@ public class StandardRoom extends Room
     {
 		if(guest == null) 
         {
-			System.out.println("Error...");
+	 		System.out.println("Error...");
 			return;
         }
 		else if(IsFull()) 
