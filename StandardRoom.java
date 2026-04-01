@@ -33,12 +33,15 @@ public class StandardRoom extends Room
                 {
 					guestList[i] = guest;
 					double finalPrice = currentHotel.calculatePrice(guestList[i], days);
+
 					currentHotel.AddProfit(finalPrice);
 					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
 					currentNumberGuest++;
+
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
 					Display();
+					
 					return;
 				}
 			}

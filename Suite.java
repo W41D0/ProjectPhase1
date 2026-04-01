@@ -28,11 +28,14 @@ public class Suite extends Room
 					double finalPrice = currentHotel.calculatePrice(guestList[i], days);
 					currentHotel.AddProfit(finalPrice);
 					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
+
+					//the if else block calculates the correct ammount of loyalty points to deduct
 					if (guestList[i] instanceof MVP)
 					{
 						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
 						int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
     					((MVP)(guestList[i])).SetLoyaltyPoints(((MVP)(guestList[i])).GetLoyaltyPoints() - (freeDaysUsed * 10));
+
 						System.out.println(guestList[i].getName() + " Succesfully used " + freeDaysUsed * 10 + " Loyalty points to save " + savings + " Riyals.");
                     	System.out.println("Loyalty points left: " + ((MVP)(guestList[i])).GetLoyaltyPoints() + "\n");
 					}
@@ -41,9 +44,12 @@ public class Suite extends Room
 						double savings = (currentHotel.GetPricePerDay() * days) - finalPrice;
 						int freeDaysUsed = (int) (savings / currentHotel.GetPricePerDay());
     					((VIP)(guestList[i])).SetLoyaltyPoints(((VIP)(guestList[i])).GetLoyaltyPoints() - (freeDaysUsed * 20));
+
 						System.out.println(guestList[i].getName() + " Succesfully used " + freeDaysUsed * 20 + " Loyalty points to save " + savings + " Riyals.");
 						System.out.println("Loyalty points left: " + ((VIP)(guestList[i])).GetLoyaltyPoints() + "\n");
 					}
+
+
 					currentNumberGuest++;
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);

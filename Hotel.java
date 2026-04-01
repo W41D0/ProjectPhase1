@@ -63,51 +63,6 @@ public class Hotel implements MinistryOfTravel
         return totalPrice;
     }
 
-    public void AddProfit(double profitGain)
-    {
-        totalProfit += profitGain;
-    }
-
-    public int getRating()
-    {
-        return rating;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void SetMaxNumberOfRooms(int maxNumberOfRooms)
-    {
-        this.maxNumberOfRooms = maxNumberOfRooms;
-    }
-
-    public int GetMaxNumberOfRooms()
-    {
-        return maxNumberOfRooms;
-    }
-
-    public int GetCurrentNumberOfRooms()
-    {
-        return currentNumberOfRooms;
-    }
-
-    public void SetPricePerDay(double pricePerDay)
-    {
-        this.pricePerDay = pricePerDay;
-    }
-
-    public double GetPricePerDay()
-    {
-        return pricePerDay;
-    }
-
-    public double GetTotalProfit()
-    {
-        return totalProfit;
-    }
-
     public boolean standardsFullyBooked() 
     {
         for (int i = 0; i < currentNumberOfRooms; i++) 
@@ -205,4 +160,49 @@ public class Hotel implements MinistryOfTravel
         }
     }
 
+    public void AddProfit(double profitGain)
+    {
+        totalProfit += profitGain;
+    }
+
+    //setter and getters-------------------------------------------------------------
+    public int getRating()
+    {
+        return rating;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void SetMaxNumberOfRooms(int maxNumberOfRooms)
+    {
+        this.maxNumberOfRooms = maxNumberOfRooms;
+    }
+
+    public int GetMaxNumberOfRooms()
+    {
+        return maxNumberOfRooms;
+    }
+
+    public int GetCurrentNumberOfRooms()
+    {
+        return currentNumberOfRooms;
+    }
+
+    public void SetPricePerDay(double pricePerDay)
+    {
+        this.pricePerDay = pricePerDay;
+    }
+
+    public double GetPricePerDay()
+    {
+        return pricePerDay;
+    }
+
+    public double GetTotalProfit()
+    {
+        return totalProfit;
+    }
 }

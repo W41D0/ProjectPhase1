@@ -106,7 +106,7 @@ public class Main
             //Guest SignUp Menu----------------------------------------------------------
             else if (choice == 2)
             {           
-                //choose Number of guests
+                //choose Single or Multiple Guests
                 System.out.println("\n1. Single Guest \n2. Multiple Guests \n3. Exit");
                 int guestChoice = input.nextInt();
 
@@ -115,6 +115,7 @@ public class Main
                 boolean listHasVIP = false;
                 int numOfGuests = 1;
 
+                //choose number of guests (if multiple)
                 if (guestChoice == 2)
                 {
                     System.out.print("\nchoose Number of Guests: "); 
@@ -126,13 +127,14 @@ public class Main
                         guestList = new Guest[numOfGuests];
                 }
 
-                //Choose name
                 for(int i = 0; i < numOfGuests; i++)
                 {
                     if (guestChoice == 2)
                     {
                         System.out.println("Guest No." + (i + 1) + ":");
                     }
+
+                    //Choose name
                     System.out.println("Enter Your Name: ");
                     input.nextLine();
                     String name = input.nextLine();
@@ -145,7 +147,7 @@ public class Main
                     System.out.println("\nEnter your balance: ");
                     double balance = input.nextDouble();
 
-                    //selecting loyalty points
+                    //selecting loyalty points ammount
                     int Lpoints = 0;
                     if (choice == 2 || choice == 3)
                     {
@@ -199,12 +201,13 @@ public class Main
                 System.out.println("\nHow many nights?");
                 int days = input.nextInt();
 
-                //books user
+                //books single user
                 if(guestChoice == 1 && userGuest != null)
                 {
                     userGuest.bookHotel(selectedPlace, days);
                     System.out.println("");
                 }
+                //books multiple users
                 else if (guestChoice == 2 && userGuest != null)
                 {
                     if(listHasVIP)
