@@ -1,10 +1,13 @@
+// Suite Room with capacity of 4 guests
 public class Suite extends Room 
 {
+	// Constructor
 	public Suite(double roomSize) 
     {
 		super(roomSize, 4);
 	}
 
+	//add one guest if vaild and suite not full, then update payment/profit
 	@Override
 	public  void AddGuest(Guest guest, int days) 
     {
@@ -20,13 +23,17 @@ public class Suite extends Room
         }
 		else 
         {
+			// Find first empty guest in guests list
 			for(int i = 0 ; i < guestList.length; i++) 
             {
 				if(guestList[i] == null) 
                 {
 					guestList[i] = guest;
+					// Calculate final price after profit
 					double finalPrice = currentHotel.calculatePrice(guestList[i], days);
+					//add paid amount to hotel total profit
 					currentHotel.AddProfit(finalPrice);
+					//deduct payment from guest balance
 					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
 
 					//the if else block calculates the correct ammount of loyalty points to deduct
@@ -49,8 +56,9 @@ public class Suite extends Room
 						System.out.println("Loyalty points left: " + ((VIP)(guestList[i])).GetLoyaltyPoints() + "\n");
 					}
 
-
+					// Update current guest counter after successful add
 					currentNumberGuest++;
+					//booking confirmation output
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
 					Display();
@@ -60,6 +68,8 @@ public class Suite extends Room
 		}
 	}
 
+	//Add multiple guests after checking capacity
+
 	@Override
 	public  void AddGuests(Guest[] guestS, int days) 
     {
@@ -68,17 +78,23 @@ public class Suite extends Room
 			System.out.println("Vaild Value.....");   	
 			return;
         }
+				
+		// count incoming guests
 		int count = 0;
 		for(int i =0; i< guestS.length;i++) 
         {
 			if(guestS != null)
 				count++;
 		}
+
+		//Ensure total guests do not exceed suite capacity
 			if(count + currentNumberGuest > guestCapacity) 
             {
 				System.out.println("Error The Number of new guest Bigger than the size...");
 				return;
             }
+
+		// Add guests one by one
 		for(int i = 0; i<guestS.length;i++) 
         {
 			if(guestS != null)
@@ -87,6 +103,7 @@ public class Suite extends Room
 	
 	}
 
+	// Remove one guest from suite
 	@Override
 	public  void RemoveGuest(Guest guest) 
     {
@@ -105,6 +122,8 @@ public class Suite extends Room
 		else 
         {
 			int index = -1;
+			
+			//Search for guest index
 			for(int i = 0 ; i < currentNumberGuest; i++) 
             {
 				if(guest.equals(guestList[i])) 
@@ -118,6 +137,7 @@ public class Suite extends Room
 				return;
 			else 
             {
+				//Shift elements left to remove gap
 				for(int i = index ; i<  currentNumberGuest-1 ; i++) 
                 {
 					guestList[i] = guestList[i+1];
@@ -129,7 +149,8 @@ public class Suite extends Room
 				
 		}
 	}
-
+	
+	// Remove multiple guests
 	@Override
 	public  void RemoveGuests(Guest[] guestS) 
     {
@@ -144,6 +165,7 @@ public class Suite extends Room
 		}
 	}
 	
+	// Check if suite has at least one MVP guest	
 	public boolean hasMVP() {
 		for (int i = 0; i < currentNumberGuest; i++) {
 			if (guestList[i] != null && guestList[i] instanceof MVP) {
@@ -153,10 +175,12 @@ public class Suite extends Room
 		return false;
 	}
 
+	// Free room service is available if there is MVP
 	public boolean hasFreeRoomService() {
 		return hasMVP();
 	}
-
+	
+	// Display suite info...
 	@Override
 	public void Display()
     {
