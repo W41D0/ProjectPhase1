@@ -4,10 +4,11 @@ public class Main
     public static void main(String[] args) 
     {
         Scanner input = new Scanner(System.in);
-
+        //Create some default hotels and rooms to work with 
         Hotel Hilton = new Hotel("Hilton Hotel", 200, 10, 4);
         Hotel BurjAlArab = new Hotel("Burj Al Arab Hotel", 400, 20, 5);
         Resort Rosewood = new Resort("Rosewood Resort", 500);
+        // Pre-fill some rooms so the system isn't empty on launch
         Hilton.AddRoom(new StandardRoom(30));
         Hilton.AddRoom(new StandardRoom(25));
         Hilton.AddRoom(new Suite(60));
@@ -25,7 +26,7 @@ public class Main
             choice = input.nextInt();
 
             //Travel Manager Menu----------------------------------------------------------------
-            if(choice == 1)
+            if(choice == 1)     //manager flow
             {
                 while (true) 
                 {
