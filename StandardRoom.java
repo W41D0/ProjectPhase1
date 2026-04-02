@@ -1,11 +1,12 @@
 public class StandardRoom extends Room
 {
-
+	//Constructor (standard room capacity = 2)
 	public StandardRoom(double roomSize) 
     {
 		super(roomSize, 2);
 	}
 
+	//Add one guest if valid, room not full and guest can afford
     @Override
 	public  void AddGuest(Guest guest, int days) 
     {
@@ -33,10 +34,12 @@ public class StandardRoom extends Room
 					guestList[i] = guest;
 					double finalPrice = currentHotel.calculatePrice(guestList[i], days);
 
+					// Update hotel profit and deduct payment from guest balance
 					currentHotel.AddProfit(finalPrice);
 					guestList[i].setBalance(guestList[i].getBalance() - finalPrice);
 					currentNumberGuest++;
 
+					//Booking confirmation output
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
 					Display();
@@ -46,7 +49,8 @@ public class StandardRoom extends Room
 			}
 		}
 	}
-    
+
+	//Add multiple guests after capacity check
     @Override
 	public  void AddGuests(Guest[] guestS, int days) 
     {
@@ -56,17 +60,22 @@ public class StandardRoom extends Room
 			return;
 		}
 
+		//Count guests that can afford booking
 		int count = 0;
 		for(int i = 0; i< guestS.length; i++) 
 		{
 			if(guestS[i] != null && currentHotel.calculatePrice(guestS[i], days) < guestS[i].getBalance())
 				count++;
 		}
+		
+		//Check if adding guests exceeds room capacity
 		if(count + currentNumberGuest > guestCapacity) 
 		{
 			System.out.println("Error The Number of new guest Bigger than the size...");
 			return;
 		}
+
+		// Add all guests one by one
 		for(int i = 0; i<guestS.length;i++) 
 		{
 			if(guestS != null)
@@ -74,6 +83,7 @@ public class StandardRoom extends Room
 		}
 	}
 
+	//Remove one guest from room
 	@Override
 	public  void RemoveGuest(Guest guest) 
 	{
@@ -90,6 +100,8 @@ public class StandardRoom extends Room
 		else 
 		{
 			int index = -1;
+
+			//Search for guest index
 			for(int i = 0 ; i < currentNumberGuest; i++) 
 			{
 				if(guest.equals(guestList[i])) 
@@ -103,6 +115,7 @@ public class StandardRoom extends Room
 				return;
 			else 
 			{
+				//Shift elements after removed guest
 				for(int i = index ; i<  currentNumberGuest-1 ; i++) 
 				{
 					guestList[i] = guestList[i+1];
@@ -113,7 +126,8 @@ public class StandardRoom extends Room
 				
 		}
 	}
-	
+
+	//Remove multiple guests
 	@Override
 	public  void RemoveGuests(Guest[] guestS) 
 	{
@@ -128,6 +142,7 @@ public class StandardRoom extends Room
 		}
 	}
 
+	//Display room info
 	@Override
 	public void Display()
     {
