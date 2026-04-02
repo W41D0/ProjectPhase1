@@ -1,7 +1,9 @@
 public class VIP extends Guest
 {
+    //VIP loyalty points
     protected int loyaltyPoints;
 
+    //Constructor
     public VIP(String name, double balance, int loyaltyPoints)
     {
         super(name, balance);
