@@ -18,7 +18,7 @@ public class Hotel implements MinistryOfTravel
         this.rating = rating;
     }
 
-    public void AddRoom(Room room)
+    public void AddRoom(Room room)  //check if there is a space before adding a room
     {
         if (currentNumberOfRooms < maxNumberOfRooms)
         {
@@ -51,7 +51,7 @@ public class Hotel implements MinistryOfTravel
         {
             freeDays = ((VIP)(guest)).GetLoyaltyPoints() / 20;
         }
-
+                
         if (freeDays > days) 
         {
             freeDays = days;
@@ -91,7 +91,7 @@ public class Hotel implements MinistryOfTravel
         return true;
     }
 
-    public StandardRoom availableRoom() 
+    public StandardRoom availableRoom() //recursive search to find the first empty standard room
     {
         return findStandardRecursive(0);
     }
@@ -113,7 +113,7 @@ public class Hotel implements MinistryOfTravel
         return findStandardRecursive(index + 1);
     }
 
-    public Suite availableSuite() 
+    public Suite availableSuite() ////recursive search to find the first empty suite.
     {
         return findSuiteRecursive(0);
     }
