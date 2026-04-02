@@ -1,5 +1,6 @@
 public abstract class Room 
 {
+    //Shared room data
     protected Hotel currentHotel;
     protected double roomSize;
     protected int currentNumberGuest;
@@ -7,6 +8,7 @@ public abstract class Room
     protected Guest[] guestList;
     protected int roomNo;
 
+    //Constructor
     public Room(double roomSize, int guestCapacity) 
     {
         this.roomSize = roomSize;
@@ -15,21 +17,25 @@ public abstract class Room
         this.guestList= new Guest[guestCapacity];
     }
 
+    //Must be implemented in subclasses
     public abstract void AddGuest(Guest guest, int days);
     public abstract void AddGuests(Guest[] guestS, int days);
     public abstract void RemoveGuest(Guest guest);
     public abstract void RemoveGuests(Guest[] guestS);
 
+    //check room is full
     public boolean IsFull() 
     {
         return currentNumberGuest == guestCapacity ;
     }
 
+    //check room is empty
     public boolean IsEmpty() 
     {
         return currentNumberGuest == 0 ;
     }
 
+    //Display room info and guest list
     public void Display()
     {
         System.out.print("Room Size: " + roomSize);
@@ -50,6 +56,7 @@ public abstract class Room
         System.out.println("");
     }
 
+    //Getters-----setters
     public double getRoomSize() 
     {
         return roomSize;
