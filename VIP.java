@@ -18,7 +18,9 @@ public class VIP extends Guest
         {
             if (!hotel.suitesFullyBooked())
             {
-                hotel.availableSuite().AddGuest(this, days);
+                Suite s = hotel.availableSuite();
+                s.AddGuest(this, days);
+                s.Display();
             }
             else
             {
