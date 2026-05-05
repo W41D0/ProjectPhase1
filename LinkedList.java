@@ -1,12 +1,14 @@
 public class LinkedList<T>
 {
-    public Node<T> head;
-    public Node<T> tail;
+    private Node<T> head;
+    private Node<T> tail;
+    private int size;
 
     public LinkedList() 
     {
         head = null;
         tail = null;
+        size = 0;
     }
 
     public boolean isEmpty() 
@@ -18,11 +20,12 @@ public class LinkedList<T>
     {
         head = null;
         tail = null;
+        size = 0;
     }
 
-    public void insertAtFront(T s)
+    public void insertAtFront(T t)
     {
-        Node n = new Node(s);
+        Node<T> n = new Node<>(t);
         if (isEmpty())
         {
             head = n;
@@ -33,6 +36,8 @@ public class LinkedList<T>
             n.setNext(head);
             head = n;
         }
+
+        size++;
     }
 
     public void insertAtBack(T t)
@@ -43,15 +48,16 @@ public class LinkedList<T>
         }
         else
         {
-            Node n = new Node(t);
+            Node<T> n = new Node<>(t);
             tail.setNext(n);
             tail = n;
+            size++;
         }
     }
 
     public void insert(T t, int index)
     {
-        if(index < 0 || index > size())
+        if(index < 0 || index > length())
         {
             return;
         }
@@ -61,26 +67,77 @@ public class LinkedList<T>
         }
         else
         {
-            Node n = new Node(t);
-            Node temp = get(index - 1);
+            Node<T> n = new Node<>(t);
+            Node<T> temp = get(index - 1);
             n.setNext(temp.getNext());
             temp.setNext(n);
+
+            if(n.getNext() == null)
+            {
+                tail = n;
+            }
+
+            size++;
         }
         
     }
 
     public void removeAtFront()
     {
-        
+        if(isEmpty())
+            return;
+    
+        head = head.getNext();
+
+        if (head == null)
+            tail = null;
+
+        size--;
     }
 
-    public Node get(int index)
+    public void removeAtBack()
     {
-        if (index >= size())
+        if (length() <= 1)
+        {
+            clear();
+            return;
+        }
+
+        Node<T> temp = get(length() - 2);
+        tail = temp;
+        temp.setNext(null);
+        size--;
+    }
+
+    public void remove(int index)
+    {
+        if (index < 0 || index >= length())
+            return;
+    
+        if (index == length() - 1)
+        {
+            removeAtBack();
+            return;
+        }
+
+        if (index == 0)
+        {
+            removeAtFront();
+            return;
+        }
+        
+        Node<T> temp = get(index - 1);
+        temp.setNext(temp.getNext().getNext());
+        size--;
+    }
+
+    public Node<T> get(int index)
+    {
+        if (index < 0 || index >= length())
         {
             return null;
         }
-        Node current = head;
+        Node<T> current = head;
         for(int i = 0; i < index; i++)
         {
             current = current.getNext();
@@ -88,28 +145,23 @@ public class LinkedList<T>
         return current;
     }
 
-    public Node getFirst()
+    public T getData(int index)
+    {
+        return get(index).getData();
+    }
+
+    public Node<T> getFirst()
     {
         return head;
     }
 
-    public Node getLast()
+    public Node<T> getLast()
     {
         return tail;
     }
 
-    public int size() {
-        if (isEmpty()) 
-        {
-            return 0;
-        }
-        int counter = 0;
-        Node current = head;
-        while (current != null) 
-        {
-            counter++;
-            current = current.getNext();
-        }
-        return counter;
+    public int length() 
+    {
+        return size;
     }
 }
