@@ -5,7 +5,7 @@ public class Hotel implements MinistryOfTravel
     private int currentNumberOfRooms = 0;
     private double totalProfit = 0;
     private double pricePerDay;
-    public Room[] roomList;
+    public LinkedList<Room> roomList;
     private int rating;
 
     public Hotel(String name, double pricePerDay, int maxNumberOfRooms, int rating)
@@ -13,8 +13,7 @@ public class Hotel implements MinistryOfTravel
         this.name = name;
         SetPricePerDay(pricePerDay);
         SetMaxNumberOfRooms(maxNumberOfRooms);
-        roomList = new Room[maxNumberOfRooms];
-
+        roomList = new LinkedList<>();
         this.rating = rating;
     }
 
@@ -23,12 +22,12 @@ public class Hotel implements MinistryOfTravel
         if (currentNumberOfRooms < maxNumberOfRooms)
         {
             if(room instanceof StandardRoom)
-                roomList[currentNumberOfRooms] = new StandardRoom(room.getRoomSize()); 
+                roomList.insertAtBack(new StandardRoom(room.getRoomSize()));
             else if (room instanceof Suite)
-                roomList[currentNumberOfRooms] = new Suite(room.getRoomSize());
+                roomList.insertAtBack(new Suite(room.getRoomSize()));
 
-            roomList[currentNumberOfRooms].SetRoomNo(currentNumberOfRooms + 1);
-            roomList[currentNumberOfRooms++].setHotel(this);
+            roomList.getData(currentNumberOfRooms).SetRoomNo(currentNumberOfRooms + 1);
+            roomList.getData(currentNumberOfRooms++).setHotel(this);
             
         }
         else
@@ -51,7 +50,7 @@ public class Hotel implements MinistryOfTravel
         {
             freeDays = ((VIP)(guest)).GetLoyaltyPoints() / 20;
         }
-                
+        
         if (freeDays > days) 
         {
             freeDays = days;
@@ -65,9 +64,9 @@ public class Hotel implements MinistryOfTravel
     {
         for (int i = 0; i < currentNumberOfRooms; i++) 
         {
-            if (roomList[i] instanceof StandardRoom) 
+            if (roomList.getData(i) instanceof StandardRoom) 
             {
-                if (roomList[i].IsEmpty()) 
+                if (roomList.getData(i).IsEmpty()) 
                 {
                     return false;
                 }
@@ -80,9 +79,9 @@ public class Hotel implements MinistryOfTravel
     {
         for (int i = 0; i < currentNumberOfRooms; i++) 
         {
-            if (roomList[i] instanceof Suite) 
+            if (roomList.getData(i) instanceof Suite) 
             {
-                if (roomList[i].IsEmpty()) 
+                if (roomList.getData(i).IsEmpty()) 
                 {
                     return false;
                 }
@@ -103,11 +102,11 @@ public class Hotel implements MinistryOfTravel
             return null;
         }
 
-        if (roomList[index] instanceof StandardRoom) 
+        if (roomList.getData(index) instanceof StandardRoom) 
         {
-            if (roomList[index].IsEmpty()) 
+            if (roomList.getData(index).IsEmpty()) 
             {
-                return (StandardRoom) roomList[index];
+                return (StandardRoom) roomList.getData(index);
             }
         }
         return findStandardRecursive(index + 1);
@@ -126,11 +125,11 @@ public class Hotel implements MinistryOfTravel
             return null;
         }
 
-        if (roomList[index] instanceof Suite) 
+        if (roomList.getData(index) instanceof Suite) 
         {
-            if (roomList[index].IsEmpty()) 
+            if (roomList.getData(index).IsEmpty()) 
             {
-                return (Suite) roomList[index];
+                return (Suite) roomList.getData(index);
             }
         }
         return findSuiteRecursive(index + 1);
@@ -149,7 +148,7 @@ public class Hotel implements MinistryOfTravel
             for (int i = 0; i < currentNumberOfRooms; i++) 
             {
                 System.out.println("Room No." + (i + 1));
-                roomList[i].Display();    
+                roomList.getData(i).Display();    
             }
         }
         else
