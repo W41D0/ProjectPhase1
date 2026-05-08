@@ -188,4 +188,14 @@ public class Suite extends Room
 		System.out.println("Has free Room Service?: " + hasFreeRoomService());
 		super.Display();
 	}
+
+	@Override
+	public String getDetails() 
+	{
+		String result = "Room type: Suite\n";
+		result += "Has free Room Service?: " + hasFreeRoomService() + "\n";
+		result += super.getDetails();
+		return result;
+	}
+
 }

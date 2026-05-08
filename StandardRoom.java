@@ -149,5 +149,14 @@ public class StandardRoom extends Room
 		System.out.println("Room type: Standard Room");
 		super.Display();
 	}
+
+	@Override
+	public String getDetails() 
+	{
+		String result = "Room type: Standard Room\n";
+		result += super.getDetails();
+		return result;
+	}
+
 	
 }

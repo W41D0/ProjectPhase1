@@ -32,6 +32,15 @@ public class Guest
         System.out.println("\tBalance: " + getBalance() + " Riyals\n");
     }
 
+    public String getDetails() 
+    {
+        String result;
+        result = "Name: " + getName();
+        result += "\tBalance: " + getBalance() + " Riyals\n\n";
+        return result;
+    }
+
+
 
     //setter and getters-------------------------------------------------------------
     public void setBalance(double balance) 

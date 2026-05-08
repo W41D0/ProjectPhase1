@@ -157,6 +157,29 @@ public class Hotel implements MinistryOfTravel
         }
     }
 
+    public String getDetails() 
+    {
+        String result;
+        result = "Hotel: " + name + "\n";
+        result += "Rating: " + rating + " stars.";
+        result += "\tPrice Per Day: " + pricePerDay + " Riyals.";
+        result += "\tTotal Profit: " + totalProfit + " Riyals.\n";
+        result += "Number of current rooms: " + currentNumberOfRooms + "\n\n";
+        result += "Room Info:\n";
+        if (currentNumberOfRooms > 0) 
+        {
+            for (int i = 0; i < currentNumberOfRooms; i++) 
+            {
+                result += "Room No." + (i + 1) + "\n";
+                result += roomList.getData(i).getDetails();
+            }
+        } 
+        else 
+            result += "The Hotel is empty of rooms.\n";
+        return result;
+    }
+
+
     public void AddProfit(double profitGain)
     {
         totalProfit += profitGain;

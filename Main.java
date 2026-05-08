@@ -8,7 +8,7 @@ public class Main
         Hotel Hilton = new Hotel("Hilton Hotel", 200, 10, 4);
         Hotel BurjAlArab = new Hotel("Burj Al Arab Hotel", 400, 20, 5);
         Resort Rosewood = new Resort("Rosewood Resort", 500);
-        // Pre-fill some rooms so the system isn't empty on launch
+        // Prefill some rooms so the system isn't empty on launch
         Hilton.AddRoom(new StandardRoom(30));
         Hilton.AddRoom(new StandardRoom(25));
         Hilton.AddRoom(new Suite(60));

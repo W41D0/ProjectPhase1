@@ -56,6 +56,27 @@ public abstract class Room
         System.out.println("");
     }
 
+    public String getDetails() 
+    {
+        String result;
+        result = "Room Size: " + roomSize;
+        result += "\tMaximum Guest Capacity: " + guestCapacity;
+        result += "\tNumber of currently booked Guests: " + currentNumberGuest + "\n";
+        if (currentNumberGuest > 0) 
+        {
+            result += "Guest List:\n";
+            for (int i = 0; i < currentNumberGuest; i++) 
+            {
+                result += guestList[i].getDetails();
+            }
+        } else {
+            result += "Room is empty.\n";
+        }
+        result += "\n";
+        return result;
+    }
+
+
     //Getters-----setters
     public double getRoomSize() 
     {

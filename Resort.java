@@ -14,6 +14,12 @@ public class Resort implements MinistryOfTravel
         System.out.println("Name: " + name + "\tRating: " + rating);
     }
 
+    public String getDetails() 
+    {
+        return "Name: " + name + "\tRating: " + rating + "\n";
+    }
+
+
     public int getRating()
     {
         return rating;
