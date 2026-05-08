@@ -214,7 +214,7 @@ public class Main
                     if(listHasVIP)
                         selectedPlace.availableSuite().AddGuests(guestList, days);
                     else
-                        selectedPlace.availableRoom().AddGuests(guestList, days);
+                        selectedPlace.availableRoom().AddGuests(guestList, days);  
                 }
             }
             //Exit----------------------------------------------------------  

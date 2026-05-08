@@ -16,7 +16,9 @@ public class Guest
         {
             if (!hotel.standardsFullyBooked())
             {
-                hotel.availableRoom().AddGuest(this, days);
+                StandardRoom r =  hotel.availableRoom();
+                r.AddGuest(this, days);
+                r.Display();
             }
             else
                 System.out.println("No Available Rooms");

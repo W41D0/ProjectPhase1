@@ -42,8 +42,6 @@ public class StandardRoom extends Room
 					//Booking confirmation output
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
-					Display();
-
 					return;
 				}
 			}
@@ -81,6 +79,7 @@ public class StandardRoom extends Room
 			if(guestS != null)
 				AddGuest(guestS[i], days);
 		}
+		Display();
 	}
 
 	//Remove one guest from room

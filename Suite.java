@@ -61,7 +61,6 @@ public class Suite extends Room
 					//booking confirmation output
 					System.out.println(guestList[i].getName() + " Paid " + finalPrice + " Riyals.");
 					System.out.println(guestList[i].getName() + " Succesfully booked into Room No." + roomNo);
-					Display();
 					return;
 				}
 			}
@@ -75,7 +74,7 @@ public class Suite extends Room
     {
 		if(guestS == null) 
         {
-			System.out.println("Vaild Value.....");   	
+			System.out.println("Invaild Value.....");   	
 			return;
         }
 				
@@ -100,7 +99,7 @@ public class Suite extends Room
 			if(guestS != null)
 				AddGuest(guestS[i], days);
 		}
-	
+		Display();
 	}
 
 	// Remove one guest from suite
