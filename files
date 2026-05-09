@@ -1,0 +1,211 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+
+public class HotelGUI {
+    private JFrame frame;
+    private JPanel mainContainer;
+    private CardLayout cardLayout;
+
+    private Hotel hotel1;
+    private Hotel hotel2;
+    private Resort resort;
+
+    private LinkedList<Guest> guestList = new LinkedList<>();
+    private final String FILE_NAME = "system_data.ser";
+
+    Font mainFont = new Font("sansSerif", Font.BOLD, 34);
+    Font buttonFont = new Font("sansSerif", Font.BOLD, 24);
+    Font displayFont = new Font("Monospaced", Font.PLAIN, 28);
+
+    public HotelGUI(Hotel h1, Hotel h2, Resort r) {
+        loadData(h1, h2, r);
+        
+        frame = new JFrame("Hotel Management System Phase 2");
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                saveData();
+                System.exit(0);
+            }
+        });
+
+        cardLayout = new CardLayout();
+        mainContainer = new JPanel(cardLayout);
+
+        mainContainer.add(mainMenu(), "MainMenu");
+        mainContainer.add(managerMenu(), "ManagerMenu");
+        mainContainer.add(guestMenu(), "GuestMenu");
+
+        frame.add(mainContainer);
+        frame.setVisible(true);
+    }
+
+    private void saveData() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            oos.writeObject(hotel1);
+            oos.writeObject(hotel2);
+            oos.writeObject(resort);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadData(Hotel h1, Hotel h2, Resort r) {
+        File f = new File(FILE_NAME);
+        if (f.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+                hotel1 = (Hotel) ois.readObject();
+                hotel2 = (Hotel) ois.readObject();
+                resort = (Resort) ois.readObject();
+            } catch (Exception e) {
+                hotel1 = h1; hotel2 = h2; resort = r;
+            }
+        } else {
+            hotel1 = h1; hotel2 = h2; resort = r;
+        }
+    }
+
+    private JPanel mainMenu() {
+        JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(200, 400, 200, 400));
+        
+        JLabel titleLabel = new JLabel("Welcome to Hotel Management System", SwingConstants.CENTER);
+        JButton managerButton = new JButton("1. Travel Manager");
+        JButton guestButton = new JButton("2. Sign up as a Guest");
+        
+        titleLabel.setFont(mainFont);
+        managerButton.setFont(buttonFont);
+        guestButton.setFont(buttonFont);
+
+        managerButton.addActionListener(e -> cardLayout.show(mainContainer, "ManagerMenu"));
+        guestButton.addActionListener(e -> cardLayout.show(mainContainer, "GuestMenu"));
+
+        panel.add(titleLabel);
+        panel.add(managerButton);
+        panel.add(guestButton);
+        return panel;
+    }
+
+    private JPanel managerMenu() {
+        JPanel dashboardPanel = new JPanel(new BorderLayout(15, 15));
+        dashboardPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+
+        JTextArea displayArea = new JTextArea();
+        displayArea.setEditable(false);
+        displayArea.setFont(displayFont);
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+
+        String[] hotelNames = {hotel1.getName(), hotel2.getName(), resort.getName()};
+        JComboBox<String> hotelDropdown = new JComboBox<>(hotelNames);
+        hotelDropdown.setFont(buttonFont);
+
+        JButton btnAddStandard = new JButton("Add Standard Room");
+        JButton btnAddSuite = new JButton("Add Suite");
+        JButton btnView = new JButton("View Hotel Details");
+        JButton btnBack = new JButton("Back to Main Menu");
+
+        btnAddStandard.addActionListener(e -> {
+            String selected = (String) hotelDropdown.getSelectedItem();
+            if (selected.contains("Resort")) {
+                JOptionPane.showMessageDialog(frame, "Resorts do not have rooms!");
+                return;
+            }
+            try {
+                String input = JOptionPane.showInputDialog("Enter Standard Room Size:");
+                if (input != null) {
+                    double size = Double.parseDouble(input);
+                    Hotel target = selected.equals(hotel1.getName()) ? hotel1 : hotel2;
+                    target.AddRoom(new StandardRoom(size));
+                    displayArea.setText("Standard Room added to " + selected);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Invalid input!");
+            }
+        });
+
+        btnAddSuite.addActionListener(e -> {
+            String selected = (String) hotelDropdown.getSelectedItem();
+            if (selected.contains("Resort")) {
+                JOptionPane.showMessageDialog(frame, "Resorts do not have rooms!");
+                return;
+            }
+            try {
+                String input = JOptionPane.showInputDialog("Enter Suite Size:");
+                if (input != null) {
+                    double size = Double.parseDouble(input);
+                    Hotel target = selected.equals(hotel1.getName()) ? hotel1 : hotel2;
+                    target.AddRoom(new Suite(size));
+                    displayArea.setText("Suite added to " + selected);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Invalid input!");
+            }
+        });
+
+        btnView.addActionListener(e -> {
+            String selected = (String) hotelDropdown.getSelectedItem();
+            if (selected.equals(hotel1.getName())) displayArea.setText(hotel1.getDetails());
+            else if (selected.equals(hotel2.getName())) displayArea.setText(hotel2.getDetails());
+            else displayArea.setText(resort.getDetails());
+        });
+
+        btnBack.addActionListener(e -> cardLayout.show(mainContainer, "MainMenu"));
+
+        JPanel sidePanel = new JPanel(new GridLayout(6, 1, 10, 10));
+        sidePanel.add(hotelDropdown);
+        sidePanel.add(btnAddStandard);
+        sidePanel.add(btnAddSuite);
+        sidePanel.add(btnView);
+        sidePanel.add(btnBack);
+
+        dashboardPanel.add(sidePanel, BorderLayout.WEST);
+        dashboardPanel.add(scrollPane, BorderLayout.CENTER);
+        return dashboardPanel;
+    }
+
+    private JPanel guestMenu() {
+        JPanel dashboardPanel = new JPanel(new BorderLayout(20, 20));
+        JPanel controlsPanel = new JPanel(new GridLayout(7, 2, 10, 10));
+        
+        JTextField nameField = new JTextField();
+        JTextField balanceField = new JTextField();
+        String[] guestType = {"Regular", "VIP", "MVP"};
+        JComboBox<String> typeDropdown = new JComboBox<>(guestType);
+        String[] hotels = {hotel1.getName(), hotel2.getName()};
+        JComboBox<String> hotelDropdown = new JComboBox<>(hotels);
+
+        JButton submitButton = new JButton("Submit Booking");
+        JButton backButton = new JButton("Back");
+
+        submitButton.addActionListener(e -> {
+            try {
+                String name = nameField.getText().trim();
+                double balance = Double.parseDouble(balanceField.getText().trim());
+                Hotel selected = hotelDropdown.getSelectedItem().equals(hotel1.getName()) ? hotel1 : hotel2;
+                
+                int days = Integer.parseInt(JOptionPane.showInputDialog(frame, "Days:"));
+                Guest g = new Guest(name, balance);
+                g.bookHotel(selected, days);
+                JOptionPane.showMessageDialog(frame, "Booking Processed.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Input Error.");
+            }
+        });
+
+        backButton.addActionListener(e -> cardLayout.show(mainContainer, "MainMenu"));
+
+        controlsPanel.add(new JLabel("Name:")); controlsPanel.add(nameField);
+        controlsPanel.add(new JLabel("Type:")); controlsPanel.add(typeDropdown);
+        controlsPanel.add(new JLabel("Balance:")); controlsPanel.add(balanceField);
+        controlsPanel.add(new JLabel("Hotel:")); controlsPanel.add(hotelDropdown);
+        controlsPanel.add(backButton); controlsPanel.add(submitButton);
+
+        dashboardPanel.add(controlsPanel, BorderLayout.CENTER);
+        return dashboardPanel;
+    }
+}
