@@ -1,4 +1,4 @@
-public class GUITEST 
+public class MainGUI 
 {
     public static void main(String[] args) 
     {
@@ -11,6 +11,6 @@ public class GUITEST
         BurjAlArab.AddRoom(new StandardRoom(20));
         BurjAlArab.AddRoom(new StandardRoom(35));
         BurjAlArab.AddRoom(new Suite(50));
-        HotelGUI h = new HotelGUI(Hilton, BurjAlArab, Rosewood);
+        new HotelGUI(Hilton, BurjAlArab, Rosewood);
     }    
 }
