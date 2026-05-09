@@ -1,3 +1,4 @@
+import java.io.Serializable;
 public class VIP extends Guest
 {
     //VIP loyalty points
@@ -12,24 +13,26 @@ public class VIP extends Guest
 
     @Override
     //method checks if user can afford then books him to a room if available one is found
-    public void bookHotel(Hotel hotel, int days)
+    //throws InsufficientBalanceException instead of printing "Cant Afford Room" handled in HotelGUI and Main
+    public void bookHotel(Hotel hotel, int days) throws InsufficientBalanceException
     {
-        if (hotel.calculatePrice(this, days) <= getBalance())
+        double price = hotel.calculatePrice(this, days);
+
+        if (price > getBalance())
         {
-            if (!hotel.suitesFullyBooked())
-            {
-                Suite s = hotel.availableSuite();
-                s.AddGuest(this, days);
-                s.Display();
-            }
-            else
-            {
-                System.out.println("No Available Rooms");
-            }
+            //replaces: System.out.println("Cant Afford Room");
+            throw new InsufficientBalanceException(price, getBalance());
+        }
+
+        if (!hotel.suitesFullyBooked())
+        {
+            Suite s = hotel.availableSuite();
+            s.AddGuest(this, days);
+            s.Display();
         }
         else
         {
-            System.out.println("Cant Afford Room");
+            System.out.println("No Available Rooms");
         }
     }
 
@@ -53,7 +56,7 @@ public class VIP extends Guest
     }
 
 
-    //setter and getters-------------------------------------------------------------
+    //setter and getters.......................................................................ز
     public void SetLoyaltyPoints(int loyaltyPoints)
     {
         this.loyaltyPoints = loyaltyPoints;

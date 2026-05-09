@@ -1,4 +1,5 @@
-public abstract class Room 
+import java.io.Serializable;
+public abstract class Room implements Serializable
 {
     //Shared room data
     protected Hotel currentHotel;

@@ -1,4 +1,5 @@
-public class Guest 
+import java.io.Serializable;
+public class Guest implements Serializable
 {
     protected String name;
     protected double balance;
@@ -10,22 +11,26 @@ public class Guest
     }
 
     //method checks if user can afford then books him to a room if available one is found
-    public void bookHotel(Hotel hotel, int days)
+    // throws InsufficientBalanceException "checked" propagated too and handled in HotelGUI
+    public void bookHotel(Hotel hotel, int days) throws InsufficientBalanceException
     {
-        if (hotel.calculatePrice(this, days) <= getBalance())
+        double price = hotel.calculatePrice(this, days);
+
+        if (price > getBalance())
         {
-            if (!hotel.standardsFullyBooked())
-            {
-                StandardRoom r =  hotel.availableRoom();
-                r.AddGuest(this, days);
-                r.Display();
-            }
-            else
-                System.out.println("No Available Rooms");
+            throw new InsufficientBalanceException(price, getBalance());
+        }
+
+        if (!hotel.standardsFullyBooked())
+        {
+            StandardRoom r = hotel.availableRoom();
+            r.AddGuest(this, days);
+            r.Display();
         }
         else
-            System.out.println("Cant Afford Room");
+            System.out.println("No Available Rooms");
     }
+
 
     //displays user info
     public void Display()

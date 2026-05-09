@@ -1,4 +1,5 @@
-public class Hotel implements MinistryOfTravel
+import java.io.Serializable;
+public class Hotel implements MinistryOfTravel, Serializable
 {
     private String name;
     private int maxNumberOfRooms;

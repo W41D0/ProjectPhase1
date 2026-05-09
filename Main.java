@@ -205,7 +205,14 @@ public class Main
                 //books single user
                 if(guestChoice == 1 && userGuest != null)
                 {
-                    userGuest.bookHotel(selectedPlace, days);
+                    try
+                    {
+                        userGuest.bookHotel(selectedPlace, days);
+                    }
+                    catch (InsufficientBalanceException e)
+                    {
+                        System.out.println("BOOKING FAILED: " + e.getMessage());
+                    }
                     System.out.println("");
                 }
                 //books multiple users

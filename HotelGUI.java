@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
 
-public class HotelGUI 
+public class HotelGUI
 {
     private JFrame frame;
     private JPanel mainContainer;
@@ -16,6 +16,7 @@ public class HotelGUI
 
     LinkedList<Guest> guestList = new LinkedList<>();
     boolean listHasVIP = false;
+    private final String FILE_NAME = "Hotels.dat";
 
     Font mainFont = new Font("sansSerif", Font.BOLD, 34);
     Font buttonFont = new Font("sansSerif", Font.BOLD, 24);
@@ -24,14 +25,22 @@ public class HotelGUI
     
     public HotelGUI(Hotel hotel1, Hotel hotel2, Resort resort) 
     {
-        this.hotel1 = hotel1;
-        this.hotel2 = hotel2;
-        this.resort = resort;
+        loadData(hotel1, hotel2, resort);
         
         //making the window
         frame = new JFrame("Hotel Management System"); 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() 
+        {
+            @Override
+            public void windowClosing(WindowEvent e) 
+            {
+                saveData();
+                System.exit(0);
+            }
+        });
 
         cardLayout = new CardLayout(); //cardLayout holds the menus 
         mainContainer = new JPanel(cardLayout); //JPanel holds the cardLayout so that the frame can see cards
@@ -44,6 +53,43 @@ public class HotelGUI
         //adding mainContainer (and cards) then setting window to be visible
         frame.add(mainContainer);
         frame.setVisible(true);
+    }
+
+    private void saveData() 
+    {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) 
+        {
+            oos.writeObject(hotel1);
+            oos.writeObject(hotel2);
+            oos.writeObject(resort);
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "SAVE FAILED: " + e.toString(), "Save Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void loadData(Hotel h1, Hotel h2, Resort r) 
+    {
+        File f = new File(FILE_NAME);
+        if (f.exists()) 
+        {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) 
+            {
+                hotel1 = (Hotel) ois.readObject();
+                hotel2 = (Hotel) ois.readObject();
+                resort = (Resort) ois.readObject();
+            } 
+            catch (Exception e) 
+            {
+                hotel1 = h1; hotel2 = h2; resort = r;
+            }
+        } 
+        else 
+        {
+            hotel1 = h1; hotel2 = h2; resort = r;
+        }
     }
 
     //--------------------------------------------------------------
@@ -525,7 +571,17 @@ public class HotelGUI
                         }
                         else
                         {
-                            userGuest.bookHotel(hotel, days);
+                            //books single guest InsufficientBalanceException propagated from bookHotel() and handled here
+                            try
+                            {
+                                userGuest.bookHotel(hotel, days);
+                            }
+                            catch (InsufficientBalanceException ex)
+                            {
+                                displayField.append("BOOKING FAILED: " + ex.getMessage() + "\n");
+                                JOptionPane.showMessageDialog(dashboardPanel, ex.getMessage(), "Insufficient Balance", JOptionPane.ERROR_MESSAGE);
+                            }
+
                         }
                         hotelDropdown.setEnabled(true);
                         modeDropdown.setEnabled(true);

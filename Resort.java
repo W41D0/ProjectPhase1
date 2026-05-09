@@ -1,4 +1,5 @@
-public class Resort implements MinistryOfTravel
+import java.io.Serializable;
+public class Resort implements MinistryOfTravel, Serializable
 {
     private String name;
     private int rating;
